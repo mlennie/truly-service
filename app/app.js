@@ -37,7 +37,7 @@ app.get('/query', (req, res) => {
       });
   } catch(error) {
     // log error event here
-    res.status(400).send("There was an issue querying. Please try again soon")
+    res.status(500).send("There was an issue querying. Please try again soon")
   }
 })
 
@@ -72,7 +72,7 @@ app.post('/number', (req, res) => {
       });
   } catch(error) {
     // log error event here
-    res.status(400).send("There was an issue adding number. Please try again soon")
+    res.status(500).send("There was an issue adding number. Please try again soon")
   }
 })
 
