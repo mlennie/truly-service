@@ -1,10 +1,8 @@
-const cors = require('cors')
 const express = require('express')
 const csv = require('fast-csv')
 const app = express()
 const fileName = "interview-callerid-data.csv"
 
-app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded());
 
