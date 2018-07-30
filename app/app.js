@@ -32,18 +32,23 @@ app.get('/query', (req, res) => {
 })
 
 app.post('/number', (req, res) => {
+  let contextExists = false
   try {
     csv
      .fromPath(fileName)
       .on("data", function(data){
         if (data[0] === req.body.number &&
             data[1] === req.body.context) {
-          return res.status(400).send("Number with that context already exists");
+          contextExists = true
         }
       })
       .on("end", function(){
         // Persist new number record/object here
-        return res.send("Number added")
+        if (contextExists) {
+          res.status(400).send("Number with that context already exists");
+        } else {
+          res.send("Number added")
+        }
       });
   } catch(error) {
     // log error event here
