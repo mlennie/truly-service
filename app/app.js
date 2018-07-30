@@ -5,17 +5,24 @@ const csv = require('fast-csv')
 const app = express()
 
 app.use(cors())
-app.use(express.json());       // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.get('/query', (req, res) => {
+  let results = []
   csv
    .fromPath("interview-callerid-data.csv")
     .on("data", function(data){
-           console.log(data);
+      if (data[0] === req.query.number) {
+        results.push({
+          name: data[2],
+          number: data[0],
+          context: data[1]
+        })
+      }
     })
     .on("end", function(){
-           console.log("done");
+      res.json({results: results})
     });
 
 })
