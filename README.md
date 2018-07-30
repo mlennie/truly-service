@@ -8,9 +8,9 @@ npm install
 
 PORT=8080 HOST=localhost node app/app.js
 
-### Test
+### 3. Test
 
-### Querying
+#### Querying
 
 curl http://172.17.0.3:30400/query?number=%2B17046366868
 
