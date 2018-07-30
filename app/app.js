@@ -24,11 +24,21 @@ app.get('/query', (req, res) => {
     .on("end", function(){
       res.json({results: results})
     });
-
 })
 
 app.post('/number', (req, res) => {
-
+  csv
+   .fromPath("interview-callerid-data.csv")
+    .on("data", function(data){
+      if (data[0] === req.body.number &&
+          data[1] === req.body.context) {
+        res.status(400).send("Number with that context already exists").end();
+      }
+    })
+    .on("end", function(){
+      // Persist new number record/object here
+      res.send("Number added")
+    });
 })
 
 var port = process.env.PORT
