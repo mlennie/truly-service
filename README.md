@@ -6,7 +6,7 @@ npm install
 
 ### 2. Run Node Server
 
-PORT=8080 HOST=localhost node app/app.js
+PORT=8080 HOST=127.0.0.1 node app/app.js
 
 ### 3. Test
 
