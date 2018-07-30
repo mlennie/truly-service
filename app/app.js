@@ -43,10 +43,10 @@ app.post('/number', (req, res) => {
         }
       })
       .on("end", function(){
-        // Persist new number record/object here
         if (contextExists) {
           res.status(400).send("Number with that context already exists");
         } else {
+          // Persist new number record/object here
           res.send("Number added")
         }
       });
