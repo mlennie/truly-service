@@ -9,6 +9,16 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.get('/query', (req, res) => {
+
+  if (!req.query.number) {
+    return res.status(400).send("Number must be present");
+  }
+
+  const patt = new RegExp(/^\+?[1-9]\d{1,14}$/);
+  if (!patt.test(req.query.number)) {
+    return res.status(400).send("Number format must be E.164");
+  }
+
   let results = []
   try {
     csv
@@ -33,12 +43,22 @@ app.get('/query', (req, res) => {
 
 app.post('/number', (req, res) => {
   let contextExists = false
+  const { number, context, name } = req.body
+
+  if (!name || !context || !number) {
+    return res.status(400).send("Number, Context and Name must be sent");
+  }
+
+  const patt = new RegExp(/^\+?[1-9]\d{1,14}$/);
+  if (!patt.test(req.body.number)) {
+    return res.status(400).send("Number format must be E.164");
+  }
+
   try {
     csv
      .fromPath(fileName)
       .on("data", function(data){
-        if (data[0] === req.body.number &&
-            data[1] === req.body.context) {
+        if (data[0] === number && data[1] === context) {
           contextExists = true
         }
       })
