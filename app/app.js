@@ -1,4 +1,3 @@
-require('dotenv').config()
 const cors = require('cors')
 const express = require('express')
 const csv = require('fast-csv')
@@ -52,8 +51,8 @@ app.post('/number', (req, res) => {
   }
 })
 
-var port = process.env.PORT
-var host = process.env.HOST
+const port = process.env.PORT
+const host = process.env.HOST
 
 app.listen(port, host, function() {
   console.log('Listening on port ' + port + '...')
