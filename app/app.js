@@ -38,12 +38,12 @@ app.post('/number', (req, res) => {
       .on("data", function(data){
         if (data[0] === req.body.number &&
             data[1] === req.body.context) {
-          res.status(400).send("Number with that context already exists").end();
+          return res.status(400).send("Number with that context already exists");
         }
       })
       .on("end", function(){
         // Persist new number record/object here
-        res.send("Number added")
+        return res.send("Number added")
       });
   } catch(error) {
     // log error event here
